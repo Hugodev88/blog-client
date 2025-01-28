@@ -1,6 +1,7 @@
 import Posts from "./features/post/pages/Posts";
 import Mainlayout from "./features/common/layouts/Main.layout";
 import { Route, Routes } from "react-router-dom";
+import Auth from "features/auth/pages/Auth";
 
 function App() {
     return (
@@ -8,6 +9,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Mainlayout />}>
                     <Route index element={<Posts />}></Route>
+                    <Route path="auth" element={<Auth />} />
                 </Route>
 
             </Routes>
