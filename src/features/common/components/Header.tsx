@@ -4,15 +4,18 @@ import { NavLink } from 'react-router-dom'
 import Logo from '../images/logo.png'
 import DesktopMenu from './menus/DesktopMenu'
 import { selectCurrentUser } from 'features/auth/slice/authSlice'
-import { useAppSelector } from '../../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import DrawerMenu from './menus/DrawerMenu'
+import { changeTheme, selectTheme } from '../slice/themeSlice'
 
 const Header = () => {
     const { user } = useAppSelector(selectCurrentUser)
-    const [dark, setDark] = useState(true)
-
+    const dispatch = useAppDispatch()
+    const { dark: darkMode } = useAppSelector(selectTheme)
+    const [dark, setDark] = useState(darkMode)
     const handleTheme = () => {
-
+        setDark(!dark)
+        dispatch(changeTheme(!dark))
     }
 
     return (

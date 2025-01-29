@@ -19,7 +19,14 @@ export const authApi = rootApi.injectEndpoints({
 				body: signInDto
 			})
 		}),
+		signOut: builder.mutation<void, void>({
+			query: () => ({
+				url: '/users/logout',
+				method: 'POST',
+				body: {}
+			})
+		}),
 	})
 })
 
-export const { useSignInMutation, useSignUpMutation } = authApi
+export const { useSignInMutation, useSignUpMutation, useSignOutMutation } = authApi

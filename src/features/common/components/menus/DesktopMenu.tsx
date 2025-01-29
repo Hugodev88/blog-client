@@ -1,8 +1,15 @@
+import { useSignOutMutation } from 'features/auth/api/authApi'
 import { UserDto } from 'features/auth/dtos/user.dto'
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 const DesktopMenu = ({ user }: { user: UserDto | null }) => {
+	const [signOut] = useSignOutMutation()
+
+	const handleSignOut = () => {
+		signOut()
+	}
+
 	return (
 		<div className='desk-menu'>
 			<NavLink to='/' className={({ isActive }) => (isActive ? 'active' : '')}>Home</NavLink>
@@ -17,7 +24,7 @@ const DesktopMenu = ({ user }: { user: UserDto | null }) => {
 						<span>{user.name}</span>
 					</Link>
 					<div className="dropdown-content">
-						<Link to='#'>Logout</Link>
+						<Link to='#' onClick={handleSignOut}>Signout</Link>
 						{user.roles.find((role) => ['admin', 'author', 'reader'].includes(role)) && (
 							<>
 								<NavLink to="/create-post" className={({ isActive }) => (isActive ? 'active' : '')}>Create Post</NavLink>
