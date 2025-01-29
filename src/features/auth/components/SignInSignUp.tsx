@@ -13,27 +13,36 @@ const SignInSignUp = ({ onSignIn, onSignUp }: AuthPageProps) => {
 	const [avatar, setAvatar] = useState<string>('')
 	const [isSignIn, setIsSignIn] = useState<boolean>(true)
 
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		if (isSignIn) {
+			onSignIn(email, password)
+		} else {
+			onSignUp(name, email, password, avatar)
+		}
+	}
+
 	return (
 		<div>
 			<h1>{isSignIn ? "SignIn" : "SignUp"}</h1>
-			<form>
+			<form onSubmit={handleSubmit}>
 				{!isSignIn && (
 					<div>
-						<label htmlFor="">Name: </label>
+						<label>Name: </label>
 						<input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 					</div>
 				)}
 				<div>
-					<label htmlFor="">Email: </label>
+					<label>Email: </label>
 					<input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
 				</div>
 				<div>
-					<label htmlFor="">Password: </label>
+					<label>Password: </label>
 					<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 				</div>
 				{!isSignIn && (
 					<div>
-						<label htmlFor="">Avatar: </label>
+						<label>Avatar: </label>
 						<input type="text" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
 					</div>
 				)}

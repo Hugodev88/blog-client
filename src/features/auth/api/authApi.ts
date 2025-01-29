@@ -1,0 +1,25 @@
+import { rootApi } from "features/rootApi";
+import { UserDto } from "../dtos/user.dto";
+import { SignUpDto } from "../dtos/signUp.dto";
+import { SignInDto } from "../dtos/signIn.dto";
+
+export const authApi = rootApi.injectEndpoints({
+	endpoints: (builder) => ({
+		signUp: builder.mutation<UserDto, SignUpDto>({
+			query: (signUpDto: SignUpDto) => ({
+				url: '/users/signup',
+				method: 'POST',
+				body: signUpDto
+			})
+		}),
+		signIn: builder.mutation<UserDto, SignInDto>({
+			query: (signInDto: SignInDto) => ({
+				url: '/users/signin',
+				method: 'POST',
+				body: signInDto
+			})
+		}),
+	})
+})
+
+export const { useSignInMutation, useSignUpMutation } = authApi
