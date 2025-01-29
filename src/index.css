@@ -615,3 +615,15 @@ dialog {
 	}
 
 }
+
+.drawer {
+	pointer-events: auto !important;
+}
+
+.rc-drawer-content {
+	pointer-events: auto !important;
+}
+
+.rc-drawer-open {
+	pointer-events: auto !important;
+}

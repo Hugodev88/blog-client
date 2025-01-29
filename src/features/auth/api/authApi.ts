@@ -26,6 +26,9 @@ export const authApi = rootApi.injectEndpoints({
 				body: {}
 			})
 		}),
+		me: builder.query<UserDto, void>({
+			query: () => `/users/me/profile`
+		}),
 	})
 })
 

@@ -2,9 +2,21 @@ import React, { useEffect } from 'react'
 import SignInSignUp from '../components/SignInSignUp'
 import { useSignInMutation, useSignUpMutation } from '../api/authApi'
 import { enqueueSnackbar } from 'notistack'
+import { selectCurrentUser } from '../slice/authSlice'
+import { useAppSelector } from 'app/hooks'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Auth = () => {
-	const [signIn, { isSuccess: signedIn }] = useSignInMutation()
+	const navigate = useNavigate()
+	const { user } = useAppSelector(selectCurrentUser)
+	const location = useLocation()
+	let from = '/'
+
+	if (location.state) {
+		from = location.state.from
+	}
+
+	const [signIn] = useSignInMutation()
 	const [signUp, { isSuccess: signedUp }] = useSignUpMutation()
 
 	const handleSignIn = async (email: string, password: string) => {
@@ -16,13 +28,13 @@ const Auth = () => {
 	}
 
 	useEffect(() => {
-		if (signedIn) {
-			enqueueSnackbar('User signed in.', { variant: 'success' })
+		if (user) {
+			navigate(from)
 		}
 		if (signedUp) {
 			enqueueSnackbar('User signed up.', { variant: 'success' })
 		}
-	}, [signedIn, signedUp])
+	}, [user, navigate, signedUp])
 
 	return (
 		<div className='auth'>
