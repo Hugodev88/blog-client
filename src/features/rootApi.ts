@@ -6,6 +6,6 @@ export const rootApi = createApi({
 		baseUrl: 'http://localhost:3500/api/v1',
 		credentials: 'include',
 	}),
-	tagTypes: ['Auth', 'Categories', 'Tags'],
+	tagTypes: ['Auth', 'Categories', 'Tags', 'Users'],
 	endpoints: (builder) => ({})
 })

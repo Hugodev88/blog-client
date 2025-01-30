@@ -10,6 +10,7 @@ import CreateCategory from "features/category/pages/CreateCategory";
 import ProtectedRoute from "features/protected/ProtectedRoute";
 import Unauthorized from "features/common/pages/Unauthorized";
 import CreateTag from "features/tag/pages/CreateTag";
+import UpdateUserRoles from "features/auth/pages/UpdateUserRoles";
 
 function App() {
     const { dark } = useAppSelector(selectTheme)
@@ -26,8 +27,9 @@ function App() {
                     <Route index element={<Posts />} />
                     <Route path="auth" element={<Auth />} />
                     <Route path="unauthorized" element={<Unauthorized />} />
-                    <Route element={<ProtectedRoute allowedRoles={['author']} />}>
+                    <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
                         <Route path="create-category" element={<CreateCategory />} />
+                        <Route path="users/role" element={<UpdateUserRoles />} />
                     </Route>
                     <Route element={<ProtectedRoute allowedRoles={['author', 'author']} />}>
                         <Route path="create-tag" element={<CreateTag />} />

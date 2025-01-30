@@ -10,7 +10,7 @@ const ProtectedRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
     return user?.roles?.find((role) => allowedRoles?.includes(role)) ? (
         <Outlet />
     ) : user ? (
-        <Navigate to="anauthorized" state={{ form: location }} replace />
+        <Navigate to="unauthorized" state={{ form: location }} replace />
     ) : (
         <Navigate to="auth" state={{ form: location }} replace />
     )

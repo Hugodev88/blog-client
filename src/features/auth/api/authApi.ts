@@ -3,6 +3,11 @@ import { UserDto } from "../dtos/user.dto";
 import { SignUpDto } from "../dtos/signUp.dto";
 import { SignInDto } from "../dtos/signIn.dto";
 
+interface ChangeRolesDto {
+	id: string;
+	roles: string[];
+}
+
 export const authApi = rootApi.injectEndpoints({
 	endpoints: (builder) => ({
 		signUp: builder.mutation<UserDto, SignUpDto>({
@@ -29,7 +34,19 @@ export const authApi = rootApi.injectEndpoints({
 		me: builder.query<UserDto, void>({
 			query: () => `/users/me/profile`
 		}),
+		getUsers: builder.query<UserDto[], void>({
+			query: () => `/users`,
+			providesTags: ['Users']
+		}),
+		changeRoles: builder.mutation<void, ChangeRolesDto>({
+			query: (changeRolesDto: ChangeRolesDto) => ({
+				url: `/users/roles/update`,
+				method: 'PUT',
+				body: changeRolesDto
+			}),
+			invalidatesTags: ['Users']
+		})
 	})
 })
 
-export const { useSignInMutation, useSignUpMutation, useSignOutMutation } = authApi
+export const { useSignInMutation, useSignUpMutation, useSignOutMutation, useGetUsersQuery, useChangeRolesMutation } = authApi
